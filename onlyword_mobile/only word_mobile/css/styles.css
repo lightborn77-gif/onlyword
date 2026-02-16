@@ -1,0 +1,815 @@
+
+        /* ============================================
+           🎨 전역 스타일 리셋
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* ============================================
+           🎨 CSS 변수 (라이트 모드 테마)
+           ============================================ */
+        :root {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f9f9f9;
+            --bg-hover: #dee2e6;
+            --bg-card: #e9ecef;
+            --text-primary: #333;
+            --text-secondary: #555;
+            --border-color: #eee;
+            --border-color-2: #dee2e6;
+            --accent-color: #1a73e8;
+            --success-color: #28a745;
+            --danger-color: #e74c3c;
+            --shadow: rgba(0,0,0,0.1);
+            
+            /* 🎨 컬러 강조 변수 */
+            --color-learning: #17a2b8;
+            --color-wrong: #ff8c00;
+            --color-safe: #28a745;
+            
+            /* 🎨 회화 모드용 컬러 */
+            --color-dialog-a: #2980b9;
+            --color-dialog-b: #6f42c1;
+        }
+
+        /* === ✅ Tokens (spacing / font / touch) === */
+        :root{
+            --space-1: 6px;
+            --space-2: 10px;
+            --space-3: 16px;
+
+            --font-s: 13px;
+            --font-m: 16px;
+            --font-l: 20px;
+        }
+
+        /* 44px touch target rule */
+        button, .icon-btn, .nav-btn, .option-btn, .action-btn, .popup-close, .mode-btn{
+            min-height: 44px;
+        }
+        .icon-btn, .nav-btn{
+            min-width: 44px;
+        }
+
+
+
+        /* ============================================
+           🌙 다크 모드 테마 CSS 변수
+           ============================================ */
+        body.dark-mode,
+        html.dark-mode {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #242424;
+            --bg-hover: #3a3a3a;
+            --bg-card: #363636;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --border-color: #404040;
+            --border-color-2: #4a4a4a;
+            --accent-color: #4a9eff;
+            --success-color: #4caf50;
+            --danger-color: #f44336;
+            --shadow: rgba(0,0,0,0.3);
+            
+            /* 🎨 다크 모드용 컬러 강조 변수 */
+            --color-learning: #4ac6c6;
+            --color-wrong: #ffb547;
+            --color-safe: #5cb85c;
+            
+            /* 🎨 회화 모드용 다크 컬러 */
+            --color-dialog-a: #4a9eff;
+            --color-dialog-b: #af70e8;
+        }
+
+        /* ============================================
+           📱 기본 body 스타일
+           ============================================ */
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+            background-color: var(--bg-primary); 
+            color: var(--text-primary);
+            overflow-x: hidden;
+            padding-bottom: 70px;
+        }
+
+        /* ============================================
+           📱 헤더 영역 스타일
+           ============================================ */
+        /* 헤더 */
+        .header {
+            position: sticky;
+            top: 0;
+            background: var(--bg-secondary);
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px var(--shadow);
+            z-index: 100;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            background: var(--bg-card);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ============================================
+           🎯 모드 선택 영역 (학습/퀴즈/SRS/회화)
+           ============================================ */
+        /* 모드 선택 */
+        .mode-selector {
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .mode-btn {
+            padding: 12px 4px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color-2);
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .mode-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        .mode-btn:active {
+            transform: scale(0.95);
+        }
+
+        .mode-icon {
+            font-size: 24px;
+        }
+
+        /* ============================================
+           🎛️ 컨트롤 바 (옵션 칩들)
+           ============================================ */
+        /* 컨트롤 바 */
+        .control-bar {
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .control-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .control-chip {
+            padding: 8px 16px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color-2);
+            border-radius: 20px;
+            font-size: 14px;
+            white-space: nowrap;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .control-chip.primary {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* ============================================
+           📇 플래시 카드 영역
+           ============================================ */
+        /* 카드 */
+        .card-area {
+            padding: 16px;
+            min-height: calc(100vh - 300px);
+            display: flex;
+            align-items: center;
+        }
+
+        .flash-card {
+            width: 100%;
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px 24px;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 20px var(--shadow);
+            position: relative;
+            touch-action: pan-y;
+        }
+
+        .card-info {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            right: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .card-word {
+            font-size: 48px;
+            font-weight: bold;
+            color: var(--text-primary);
+            text-align: center;
+            margin-bottom: 24px;
+            word-break: keep-all;
+            line-height: 1.3;
+            cursor: pointer;
+        }
+
+        .card-meaning {
+            font-size: 32px;
+            color: var(--text-secondary);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        /* ============================================
+           📝 퀴즈 옵션 영역
+           ============================================ */
+        /* 퀴즈 옵션 */
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+            width: 100%;
+            margin-top: 24px;
+        }
+
+        .quiz-btn {
+            padding: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color-2);
+            border-radius: 16px;
+            cursor: pointer;
+            text-align: left;
+        }
+
+        body.dark-mode .quiz-btn { color: #ffffff !important; }
+
+        .quiz-btn:active {
+            transform: scale(0.98);
+        }
+
+        .quiz-btn.correct {
+            background: var(--success-color) !important;
+            color: white !important;
+            border-color: var(--success-color) !important;
+        }
+
+        .quiz-btn.wrong {
+            background: var(--danger-color) !important;
+            color: white !important;
+            border-color: var(--danger-color) !important;
+        }
+
+        /* ============================================
+           📊 진행 바 (프로그레스 바)
+           ============================================ */
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--bg-card);
+            border-radius: 0 0 20px 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s;
+        }
+
+        /* ============================================
+           📱 하단 네비게이션 바
+           ============================================ */
+        /* 하단 네비게이션 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            padding: 8px 8px 8px;
+            box-shadow: 0 -2px 10px var(--shadow);
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 8px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.2s;
+        }
+
+        .nav-btn:active {
+            background: var(--bg-hover);
+            transform: scale(0.9);
+        }
+
+        /* ============================================
+           🗂️ 팝업 공통 스타일
+           ============================================ */
+        /* 팝업 */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            align-items: flex-end;
+        }
+
+        .popup-overlay.show {
+            display: flex;
+        }
+
+        .popup {
+            background: var(--bg-secondary);
+            border-radius: 20px 20px 0 0;
+            padding: 24px;
+            width: 100%;
+            max-height: 70vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .popup-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .popup-close {
+            font-size: 28px;
+            border: none;
+            background: none;
+            cursor: pointer;
+        }
+
+        /* ============================================
+           ⚙️ 설정 그룹 스타일
+           ============================================ */
+        /* 설정 그룹 */
+        .setting-group {
+            margin-bottom: 24px;
+        }
+
+        .setting-label {
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .option-btn {
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color-2);
+            border-radius: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .option-btn.active {
+            background: var(--accent-color);
+            color: white;
+            border-color: var(--accent-color);
+        }
+
+        /* ============================================
+           ☑️ 체크박스 그룹 스타일
+           ============================================ */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--bg-tertiary);
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-color-2);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox.checked {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        .checkbox.checked::after {
+            content: '✓';
+            color: white;
+            font-size: 14px;
+        }
+
+        /* ============================================
+           🎚️ 범위 선택 및 슬라이더
+           ============================================ */
+        /* 범위 선택 */
+        .range-input {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .range-input input {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-color-2);
+            border-radius: 8px;
+            font-size: 16px;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        /* 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 300;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        /* 통계 카드 */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .stat-card {
+            background: var(--bg-tertiary);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* 리포트 */
+        .report-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            margin-bottom: 8px;
+            border-radius: 8px;
+        }
+
+        .report-word {
+            flex: 1;
+        }
+
+        .report-word-eng {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .report-word-kor {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .speaker-btn {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-color), #0d5dbf);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 12px;
+        }
+
+        body.dark-mode .speaker-btn {
+            background: linear-gradient(135deg, #4a9eff, #2d7dd2);
+        }
+
+        /* ============================================
+           🔘 액션 버튼 스타일
+           ============================================ */
+        .action-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        .text-wrong {
+            color: var(--danger-color);
+            font-weight: bold;
+        }
+
+        /* 슬라이더 */
+        .slider-container {
+            margin: 16px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 40px;
+            -webkit-appearance: none;
+            background: var(--bg-tertiary);
+            outline: none;
+            border-radius: 20px;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 28px;
+            height: 28px;
+            background: var(--accent-color);
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        .slider-value {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-top: 8px;
+        }
+
+        /* ============================================
+           📱 학습창 풀스크린 모드
+           ============================================ */
+        .study-fullscreen-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 16px;
+            width: 56px;
+            height: 56px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 24px;
+            box-shadow: 0 4px 12px var(--shadow);
+            cursor: pointer;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .study-fullscreen-btn:active {
+            transform: scale(0.9);
+        }
+
+        /* ============================================
+           🔁 쉐도잉 현재 세트 반복(AB) 플로팅 버튼
+           - 기존 UI/설정 디자인은 유지하고, 쉐도잉 중 빠르게 토글만 가능하게 추가
+           ============================================ */
+        .shadow-loop-btn {
+            position: fixed;
+            bottom: 152px;
+            right: 16px;
+            width: 56px;
+            height: 56px;
+            background: rgba(0, 0, 0, 0.35);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 22px;
+            box-shadow: 0 4px 12px var(--shadow);
+            cursor: pointer;
+            z-index: 99;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .shadow-loop-btn:active { transform: scale(0.92); }
+        .shadow-loop-btn.on {
+            background: var(--accent-color);
+        }
+
+        body.study-fullscreen .header,
+        body.study-fullscreen .mode-selector,
+        body.study-fullscreen .control-bar,
+        body.study-fullscreen .bottom-nav {
+            display: none !important;
+        }
+
+        body.study-fullscreen {
+            padding-bottom: 0;
+        }
+
+        body.study-fullscreen .card-area {
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        body.study-fullscreen .flash-card {
+            min-height: 100vh;
+            border-radius: 0;
+        }
+
+        body.study-fullscreen .study-fullscreen-btn {
+            bottom: 16px;
+        }
+        body.study-fullscreen .shadow-loop-btn {
+            bottom: 82px;
+        }
+    
+
+        /* ============================================
+           📌 풀스크린 퀵 모드바 (롱프레스)
+           - 디자인/기존 설정 UI는 건드리지 않고, 풀스크린에서만 겹쳐서 표시
+           ============================================ */
+        .fs-modebar {
+            position: fixed;
+            left: 50%;
+            bottom: 18px;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 18px;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 9999;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+        }
+        body:not(.study-fullscreen) .fs-modebar {
+            display: none !important;
+        }
+        .fs-modebar.hidden {
+            display: none !important;
+        }
+        .fs-modebtn {
+            min-height: 36px;
+            border: 1px solid rgba(255,255,255,0.18);
+            background: rgba(255,255,255,0.10);
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 14px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .fs-modebtn:active {
+            transform: scale(0.98);
+        }
+        .fs-modebtn.active {
+            background: rgba(255,255,255,0.22);
+            border-color: rgba(255,255,255,0.30);
+        }
